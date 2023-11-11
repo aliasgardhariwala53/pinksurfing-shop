@@ -46,12 +46,12 @@ export async function deleteProduct({ product_id }) {
 }
 
 export const filterProducts =
-  ({ category }) =>
+  ({ subcategories }) =>
   (dispatch) => {
     return new Promise((resolve, reject) => {
       apiClient({
         method: HTTP_METHOD.GET,
-        url: PATH.product.filterProduct({ category }),
+        url: PATH.product.filterProduct({ subcategories }),
       })
         .then((response) => {
           resolve(response?.data);
@@ -79,7 +79,9 @@ export async function getSubCategories({ category }) {
     method: HTTP_METHOD.GET,
     url: PATH.product.subcategories(category),
   });
-  return tempResponse?.data;
+  return tempResponse?.data?.filter(
+    (item) => item?.category === category?.toLowerCase()
+  );
 }
 
 export async function vendorDetails({ product_id }) {

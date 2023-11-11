@@ -11,7 +11,9 @@ const SmallCardsTest = ({ categoriesData }) => {
         `/subcategories/?category=${cat?.replace(/\s+/g, "-")?.toLowerCase()}`
       );
     } else {
-      navigate(`/products/${cat?.replace(/\s+/g, "-")?.toLowerCase()}`);
+      navigate(
+        `/products/?subcategories=${cat?.replace(/\s+/g, "-")?.toLowerCase()}`
+      );
     }
   };
 

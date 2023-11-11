@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { viewAllProducts } from "../redux/actions/product";
 import { API_ENDPOINT, API_ENDPOINT_BASE } from "../services/apiConstant";
 import { useDispatch, useSelector } from "react-redux";
-import { addCustomerCart } from "../redux/actions/customer";
+import { addCustomerCart, viewCustomerCart } from "../redux/actions/customer";
 import { toast } from "react-toastify";
+import media from "../../utils/media";
 
 const ListItems = () => {
   const ref = useRef();
@@ -92,6 +93,7 @@ const ListItems = () => {
       })
     )
       .then((data) => {
+        dispatch(viewCustomerCart());
         if (data?.status === 200) {
           toast.success(
             `${
@@ -209,7 +211,7 @@ const ListItems = () => {
                 </div>
               </div>
               <button
-                onClick={() => addToCart(selectProduct?.id)}
+                onClick={(e) => addToCart(selectProduct?.id, e)}
                 className=" lg:grid-col-span-2 lg:row-start-2 row-start-3 text-center bg-white m-auto my-5 smoke flex items-center justify-center w-[200px] h-[50px]"
               >
                 <AiOutlineShoppingCart
@@ -233,7 +235,7 @@ const ListItems = () => {
             return (
               <div
                 key={index}
-                className="h-auto w-[100%] m-3  padding-10 rounded-2xl shadow-[0.3rem_0.3rem_0.3rem_0_rgb(208,208,208),-0.3rem_-0.3rem_0.3rem_0_rgb(155,155,155)]"
+                className="h-auto w-[100%] h-fit m-3  padding-10 rounded-2xl shadow-[0.3rem_0.3rem_0.3rem_0_rgb(208,208,208),-0.3rem_-0.3rem_0.3rem_0_rgb(155,155,155)]"
               >
                 <button
                   onDoubleClick={(e) => onDoubleClickProduct(item?.id, e)}
@@ -242,7 +244,7 @@ const ListItems = () => {
                 >
                   <img
                     className="h-[250px] w-full p-5 rounded-t-2xl shadow-xl"
-                    src={item?.image}
+                    src={media + item?.image}
                     alt=""
                   />
                   <div className="details bg-white text-black h-[30%] rounded-b-2xl relative">
@@ -261,7 +263,7 @@ const ListItems = () => {
                           View
                         </button>
                         <button
-                          onClick={(e) => addToCart(selectProduct?.id, e)}
+                          onClick={(e) => addToCart(item?.id, e)}
                           className=" text-center text-white bg-black  smoke flex items-center justify-center  h-[40px] rounded px-2"
                         >
                           <AiOutlineShoppingCart
@@ -280,227 +282,6 @@ const ListItems = () => {
               </div>
             );
           })}
-
-          <div className="h-auto w-[100%] m-3  padding-10 rounded-2xl shadow-[0.3rem_0.3rem_0.3rem_0_rgb(208,208,208),-0.3rem_-0.3rem_0.3rem_0_rgb(155,155,155)]">
-            <button
-              // onDoubleClick={(e) => onDoubleClickProduct(item?.id, e)}
-              // onClick={(e) => onClickProduct(item, e)}
-              className="w-[100%]"
-            >
-              <img
-                className="h-[250px] w-full p-5 rounded-t-2xl shadow-xl"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                alt=""
-              />
-              <div className="details bg-white text-black h-[30%] rounded-b-2xl relative">
-                <div className="desc flex flex-col px-4 py-2 items-center">
-                  <h1 className="product_name text-xl font-semibold">
-                    Product 1
-                  </h1>
-                  <h1 className="product_pricing text-lg font-semibold mt-2">
-                    $1000
-                  </h1>
-                  <div className="flex justify-between my-2">
-                    <button
-                      className="bg-[#2d1e5f] text-white px-7 rounded mr-1"
-                      onClick={showDetails}
-                    >
-                      View
-                    </button>
-                    <button
-                      onClick={(e) => addToCart(selectProduct?.id, e)}
-                      className=" text-center text-white bg-black  smoke flex items-center justify-center  h-[40px] rounded px-2"
-                    >
-                      <AiOutlineShoppingCart
-                        className="mr-2"
-                        mx-4
-                      ></AiOutlineShoppingCart>
-                      Add To Cart
-                    </button>
-                  </div>
-                  {/* <button className="like absolute right-3 bottom-3 h-button w-button m-2">
-                        <AiTwotoneHeart className="text-2xl text-red-700" />
-                      </button> */}
-                </div>
-              </div>
-            </button>
-          </div>
-          <div className="h-auto w-[100%] m-3  padding-10 rounded-2xl shadow-[0.3rem_0.3rem_0.3rem_0_rgb(208,208,208),-0.3rem_-0.3rem_0.3rem_0_rgb(155,155,155)]">
-            <button
-              // onDoubleClick={(e) => onDoubleClickProduct(item?.id, e)}
-              // onClick={(e) => onClickProduct(item, e)}
-              className="w-[100%]"
-            >
-              <img
-                className="h-[250px] w-full p-5 rounded-t-2xl shadow-xl"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                alt=""
-              />
-              <div className="details bg-white text-black h-[30%] rounded-b-2xl relative">
-                <div className="desc flex flex-col px-4 py-2 items-center">
-                  <h1 className="product_name text-xl font-semibold">
-                    Product 1
-                  </h1>
-                  <h1 className="product_pricing text-lg font-semibold mt-2">
-                    $1000
-                  </h1>
-                  <div className="flex justify-between my-2">
-                    <button
-                      className="bg-[#2d1e5f] text-white px-7 rounded mr-1"
-                      onClick={showDetails}
-                    >
-                      View
-                    </button>
-                    <button
-                      onClick={(e) => addToCart(selectProduct?.id, e)}
-                      className=" text-center text-white bg-black  smoke flex items-center justify-center  h-[40px] rounded px-2"
-                    >
-                      <AiOutlineShoppingCart
-                        className="mr-2"
-                        mx-4
-                      ></AiOutlineShoppingCart>
-                      Add To Cart
-                    </button>
-                  </div>
-                  {/* <button className="like absolute right-3 bottom-3 h-button w-button m-2">
-                        <AiTwotoneHeart className="text-2xl text-red-700" />
-                      </button> */}
-                </div>
-              </div>
-            </button>
-          </div>
-          <div className="h-auto w-[100%] m-3  padding-10 rounded-2xl shadow-[0.3rem_0.3rem_0.3rem_0_rgb(208,208,208),-0.3rem_-0.3rem_0.3rem_0_rgb(155,155,155)]">
-            <button
-              // onDoubleClick={(e) => onDoubleClickProduct(item?.id, e)}
-              // onClick={(e) => onClickProduct(item, e)}
-              className="w-[100%]"
-            >
-              <img
-                className="h-[250px] w-full p-5 rounded-t-2xl shadow-xl"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                alt=""
-              />
-              <div className="details bg-white text-black h-[30%] rounded-b-2xl relative">
-                <div className="desc flex flex-col px-4 py-2 items-center">
-                  <h1 className="product_name text-xl font-semibold">
-                    Product 1
-                  </h1>
-                  <h1 className="product_pricing text-lg font-semibold mt-2">
-                    $1000
-                  </h1>
-                  <div className="flex justify-between my-2">
-                    <button
-                      className="bg-[#2d1e5f] text-white px-7 rounded mr-1"
-                      onClick={showDetails}
-                    >
-                      View
-                    </button>
-                    <button
-                      onClick={(e) => addToCart(selectProduct?.id, e)}
-                      className=" text-center text-white bg-black  smoke flex items-center justify-center  h-[40px] rounded px-2"
-                    >
-                      <AiOutlineShoppingCart
-                        className="mr-2"
-                        mx-4
-                      ></AiOutlineShoppingCart>
-                      Add To Cart
-                    </button>
-                  </div>
-                  {/* <button className="like absolute right-3 bottom-3 h-button w-button m-2">
-                        <AiTwotoneHeart className="text-2xl text-red-700" />
-                      </button> */}
-                </div>
-              </div>
-            </button>
-          </div>
-          <div className="h-auto w-[100%] m-3  padding-10 rounded-2xl shadow-[0.3rem_0.3rem_0.3rem_0_rgb(208,208,208),-0.3rem_-0.3rem_0.3rem_0_rgb(155,155,155)]">
-            <button
-              // onDoubleClick={(e) => onDoubleClickProduct(item?.id, e)}
-              // onClick={(e) => onClickProduct(item, e)}
-              className="w-[100%]"
-            >
-              <img
-                className="h-[250px] w-full p-5 rounded-t-2xl shadow-xl"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                alt=""
-              />
-              <div className="details bg-white text-black h-[30%] rounded-b-2xl relative">
-                <div className="desc flex flex-col px-4 py-2 items-center">
-                  <h1 className="product_name text-xl font-semibold">
-                    Product 1
-                  </h1>
-                  <h1 className="product_pricing text-lg font-semibold mt-2">
-                    $1000
-                  </h1>
-                  <div className="flex justify-between my-2">
-                    <button
-                      className="bg-[#2d1e5f] text-white px-7 rounded mr-1"
-                      onClick={showDetails}
-                    >
-                      View
-                    </button>
-                    <button
-                      onClick={(e) => addToCart(selectProduct?.id, e)}
-                      className=" text-center text-white bg-black  smoke flex items-center justify-center  h-[40px] rounded px-2"
-                    >
-                      <AiOutlineShoppingCart
-                        className="mr-2"
-                        mx-4
-                      ></AiOutlineShoppingCart>
-                      Add To Cart
-                    </button>
-                  </div>
-                  {/* <button className="like absolute right-3 bottom-3 h-button w-button m-2">
-                        <AiTwotoneHeart className="text-2xl text-red-700" />
-                      </button> */}
-                </div>
-              </div>
-            </button>
-          </div>
-          <div className="h-auto w-[100%] m-3  padding-10 rounded-2xl shadow-[0.3rem_0.3rem_0.3rem_0_rgb(208,208,208),-0.3rem_-0.3rem_0.3rem_0_rgb(155,155,155)]">
-            <button
-              // onDoubleClick={(e) => onDoubleClickProduct(item?.id, e)}
-              // onClick={(e) => onClickProduct(item, e)}
-              className="w-[100%]"
-            >
-              <img
-                className="h-[250px] w-full p-5 rounded-t-2xl shadow-xl"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                alt=""
-              />
-              <div className="details bg-white text-black h-[30%] rounded-b-2xl relative">
-                <div className="desc flex flex-col px-4 py-2 items-center">
-                  <h1 className="product_name text-xl font-semibold">
-                    Product 1
-                  </h1>
-                  <h1 className="product_pricing text-lg font-semibold mt-2">
-                    $1000
-                  </h1>
-                  <div className="flex justify-between my-2">
-                    <button
-                      className="bg-[#2d1e5f] text-white px-7 rounded mr-1"
-                      onClick={showDetails}
-                    >
-                      View
-                    </button>
-                    <button
-                      onClick={(e) => addToCart(selectProduct?.id, e)}
-                      className=" text-center text-white bg-black  smoke flex items-center justify-center  h-[40px] rounded px-2"
-                    >
-                      <AiOutlineShoppingCart
-                        className="mr-2"
-                        mx-4
-                      ></AiOutlineShoppingCart>
-                      Add To Cart
-                    </button>
-                  </div>
-                  {/* <button className="like absolute right-3 bottom-3 h-button w-button m-2">
-                        <AiTwotoneHeart className="text-2xl text-red-700" />
-                      </button> */}
-                </div>
-              </div>
-            </button>
-          </div>
         </div>
       </div>
     </div>

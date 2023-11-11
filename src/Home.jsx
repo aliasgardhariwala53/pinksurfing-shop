@@ -99,29 +99,6 @@ export const tempCategoriesDataArray = [
 ];
 
 const Home = () => {
-  // const [categoriesData, setCategoriesData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // useEffect(() => {
-  //   getProductCategories()
-  //     .then((res) => {
-  //       const tempData =
-  //         res &&
-  //         res?.map((el) => {
-  //           return {
-  //             ...el,
-  //             image: tempCategoriesDataArray?.find(
-  //               (item) => item?.slug === el?.slug
-  //             )?.image,
-  //           };
-  //         });
-  //       setCategoriesData(tempData);
-  //     })
-  //     .catch(() => {
-  //       setCategoriesData([]);
-  //     })
-  //     .finally(() => setIsLoading(false));
-  // }, []);
-
   return (
     <div>
       <Search />

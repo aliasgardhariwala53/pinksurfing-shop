@@ -3,10 +3,12 @@ import media from "../utils/media";
 import axios from "axios";
 import endpoint from "../utils/endpoint";
 import { useDispatch, useSelector } from "react-redux";
-import { removeCustomerCart } from "./redux/actions/customer";
+import { addProduct, removeCustomerCart } from "./redux/actions/customer";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartData = useSelector(
     (state) => (state && state?.cart && state?.cart?.cartItems) || []
   );
@@ -23,7 +25,22 @@ function Cart() {
     }
   };
   const buyNow = async () => {
-    // Your existing code for the "Buy Now" functionality
+    try {
+      dispatch(
+        addProduct({
+          data: {
+            username: localStorage.getItem("accessToken"),
+            address: "8dd078a8-64de-4071-8818-d4d3d8667d6a",
+          },
+        })
+      ).then(() => {
+        navigate("/list-items");
+      });
+    } catch (error) {
+      console.log("====================================");
+      console.log("");
+      console.log("====================================");
+    }
   };
 
   return (
@@ -36,6 +53,7 @@ function Cart() {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{item?.name}</h2>
+              <h2 className="card-title">items :{item?.count}</h2>
               <div className="card-actions justify-end">
                 <button
                   className="btn btn-secondary"

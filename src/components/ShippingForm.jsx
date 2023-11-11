@@ -4,6 +4,7 @@ import React, { useState } from "react";
 const Ship = ({ checkout, setCheckout }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setCheckout("payment");
   };
 

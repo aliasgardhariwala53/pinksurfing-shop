@@ -17,7 +17,6 @@ const Wishlist = () => {
 
   return (
     <div className="relative bg-white w-full h-full  overflow-hidden text-left text-xl text-gray flex px-11 flex-col">
-      <SubNav />
       {/* Main Content */}
       <div className={`  w-screen mx-10 bg-gray-100`}>
         {/* Product cards */}

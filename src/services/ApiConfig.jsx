@@ -1,16 +1,14 @@
 import axios from "axios";
-
-const defaultHeaders = {
-  "Cache-Control": "no-cache",
-  Pragma: "no-cache",
-  Expires: "0",
-};
-
+const accessToken = localStorage.getItem("accessToken");
 export function apiClient({
   url,
   data = {},
   method = "",
-  headers = {},
+  headers = {
+    "Content-type": "application/json",
+    Accept: "application/json",
+    Authorization: "Bearer " + accessToken,
+  },
   noHeaders,
   ...rest
 }) {
@@ -25,7 +23,6 @@ export function apiClient({
       method,
       url,
       headers: {
-        ...(noHeaders ? {} : defaultHeaders),
         ...headers,
       },
       data,

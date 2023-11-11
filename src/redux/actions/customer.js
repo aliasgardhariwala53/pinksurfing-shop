@@ -11,7 +11,7 @@ import {
 import { HTTP_METHOD } from "../../utils/constant";
 
 export const addCustomerCart =
-  ({ data, product_id, productData }) =>
+  ({ data, product_id, productData, cartData }) =>
   (dispatch) => {
     return new Promise((resolve, reject) => {
       apiClient({
@@ -21,10 +21,6 @@ export const addCustomerCart =
       })
         .then((response) => {
           resolve(response?.data);
-          dispatch({
-            type: ADD_TO_CART,
-            payload: productData,
-          });
         })
         .catch((error) => {
           reject(error);
@@ -47,6 +43,23 @@ export const removeCustomerCart =
             type: REMOVE_FROM_CART,
             payload: product_id,
           });
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+export const addProduct =
+  ({ data }) =>
+  (dispatch) => {
+    return new Promise((resolve, reject) => {
+      apiClient({
+        method: HTTP_METHOD.POST,
+        url: PATH.customer.createOrder,
+        data,
+      })
+        .then((response) => {
+          resolve(response?.data);
         })
         .catch((error) => {
           reject(error);

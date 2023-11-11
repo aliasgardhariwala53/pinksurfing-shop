@@ -39,7 +39,6 @@ const Checkout = () => {
 
   return (
     <div className="relative bg-white w-full h-full  overflow-hidden text-left text-xl text-gray flex px-11 flex-col">
-      <SubNav />
       {/* Main Content */}
       <div className={`  w-screen mx-10 bg-gray-100`}>
         {/* Product cards */}
@@ -60,7 +59,7 @@ const Checkout = () => {
           <div
             className={`flex flex-row flex-wrap min-h-screen w-full col-start-1 content-baseline gap-8`}
           >
-            {[{}, {}, {}, {}].map((data, index) => (
+            {products?.map((data, index) => (
               <ProductCard key={index} data={data} />
             ))}
           </div>

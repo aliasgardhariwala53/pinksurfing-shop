@@ -1,9 +1,33 @@
 "use client";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/actions/customer";
+import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const buyNow = async () => {
+    try {
+      dispatch(
+        addProduct({
+          data: {
+            username: localStorage.getItem("accessToken"),
+            address: "8dd078a8-64de-4071-8818-d4d3d8667d6a",
+          },
+        })
+      ).then(() => {
+        navigate("/list-items");
+      });
+    } catch (error) {
+      console.log("====================================");
+      console.log("");
+      console.log("====================================");
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+    buyNow();
   };
 
   return (

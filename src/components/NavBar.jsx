@@ -19,6 +19,7 @@ const NavBar = (props) => {
   }, []);
 
   const handleLogout = () => {
+    localStorage.clear();
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("accessTokenExpiration");

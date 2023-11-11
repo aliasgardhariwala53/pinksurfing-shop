@@ -32,7 +32,7 @@ import {
   addCustomerWishlist,
   removeCustomerWishlist,
 } from "./redux/actions/customer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Ship from "./components/ShippingForm";
 
 const Productdetails = () => {
@@ -41,6 +41,9 @@ const Productdetails = () => {
   console.log(id);
   const [isHeartFilled, setIsHeartFilled] = useState(false);
   const [details, setDetails] = useState(false);
+  const cartData = useSelector(
+    (state) => (state && state?.cart && state?.cart?.cartItems) || []
+  );
   const [productData, setProductData] = useState({
     name: "",
     image: "",
@@ -91,7 +94,12 @@ const Productdetails = () => {
 
   const addToCart = (id) => {
     dispatch(
-      addCustomerCart({ data: { quantity: 1 }, product_id: id, productData })
+      addCustomerCart({
+        data: { quantity: 1 },
+        product_id: id,
+        productData,
+        cartData,
+      })
     )
       .then((data) => {
         if (data?.status === 200) {
@@ -159,7 +167,6 @@ const Productdetails = () => {
         <Spinner />
       ) : (
         <div className="content flex flex-wrap">
-          <SubNav />
           <div className="w-full sm:w-1/2">
             <div className="mainImage relative px-6 flex justify-center my-4">
               <img

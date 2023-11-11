@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import endpoint from "../utils/endpoint";
-import logo from './assets/logo.png';
-import { Link } from "react-router-dom";
+import logo from "./assets/logo.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -127,11 +127,38 @@ const Login = () => {
           <div className="box flex flex-col justify-center items-center h-full space-y-2">
             <img src={logo} alt="" className="w-24" />
             <h1 className="font-bold text-2xl">Login</h1>
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-4 border-2 rounded-md p-6">
-              <input type="text" name="" id="" onChange={(e)=>setUsername(e.target.value)} className="bg-transparent py-1.5 px-3 w-72 rounded-md border-2" placeholder="Username" />
-              <input type="password" name="" id="" onChange={(e)=>setPassword(e.target.value)} className="bg-transparent py-1.5 px-3 w-72 rounded-md border-2" placeholder="Password" />
-              <button type="submit" className="bg-white text-blue-900 text-lg font-semibold py-2 rounded-md shadow hover:shadow-md">Login</button>
-              <div className="text-right">Not a user yet? <Link to="/signup" className="font-semibold">Signup now</Link></div>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col space-y-4 border-2 rounded-md p-6"
+            >
+              <input
+                type="text"
+                name=""
+                id=""
+                onChange={(e) => setUsername(e.target.value)}
+                className="bg-transparent py-1.5 px-3 w-72 rounded-md border-2"
+                placeholder="Username"
+              />
+              <input
+                type="password"
+                name=""
+                id=""
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-transparent py-1.5 px-3 w-72 rounded-md border-2"
+                placeholder="Password"
+              />
+              <button
+                type="submit"
+                className="bg-white text-blue-900 text-lg font-semibold py-2 rounded-md shadow hover:shadow-md"
+              >
+                Login
+              </button>
+              <div className="text-right">
+                Not a user yet?{" "}
+                <Link to="/signup" className="font-semibold">
+                  Signup now
+                </Link>
+              </div>
             </form>
           </div>
         </div>

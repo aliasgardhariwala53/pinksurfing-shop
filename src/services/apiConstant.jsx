@@ -30,12 +30,11 @@ export const PATH = {
     categories: `${API_ENDPOINT}/product/categories/`,
     deleteProduct: (product_id) =>
       `${API_ENDPOINT}/product/delete-product/${product_id}/`,
-    filterProduct: ({ category }) =>
-      `${API_ENDPOINT}/product/filter-products/?category=${category}`,
+    filterProduct: ({ subcategories }) =>
+      `${API_ENDPOINT}/product/filter-products/?subcategories=${subcategories}`,
     getProduct: (product_id) =>
       `${API_ENDPOINT}/product/product/${product_id}/`,
-    subcategories: (category) =>
-      `${API_ENDPOINT}/product/subcategories/?category=${category}`,
+    subcategories: (category) => `${API_ENDPOINT}/product/subcategories`,
     vendorProducts: (vendor_id) =>
       `${API_ENDPOINT}/product/vendor-products/${vendor_id}/`,
   },

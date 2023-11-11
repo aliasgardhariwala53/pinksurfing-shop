@@ -20,8 +20,11 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { viewCustomerCart } from "../redux/actions/customer";
+import { useDispatch } from "react-redux";
 const Product = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const BASE_URL = "https://ecommerce.pinksurfing.com";
   const [searchParams, setSearchParams] = useSearchParams();
   console.log(searchParams);
@@ -63,6 +66,7 @@ const Product = () => {
         }
       )
       .then((data) => {
+        dispatch(viewCustomerCart());
         if (data.status === 200) {
           toast.success(
             `${
@@ -115,7 +119,6 @@ const Product = () => {
 
   return (
     <div className="relative bg-white w-full  overflow-hidden text-left text-xl text-gray font-inter flex px-11 flex-col">
-      <SubNav />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-screen text-black pr-20">
         <div className="grid col-span-full lg:col-span-5 grid-cols-3 grid-rows-5 gap-1 h-full">
           <img

@@ -48,7 +48,7 @@ function App() {
           <Route exact path="/" element={<Home />}></Route>
           <Route
             exact
-            path="/products/:category"
+            path="/products/:category?"
             element={<ProjectDisplay />}
           ></Route>
           <Route

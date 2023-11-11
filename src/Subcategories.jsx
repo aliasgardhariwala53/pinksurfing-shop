@@ -77,12 +77,14 @@ const Subcategories = () => {
             res?.map((el) => {
               return {
                 ...el,
-                image: tempCategoriesDataArray?.find(
-                  (item) => item?.slug === el?.slug
-                )?.image,
+                image: el?.image
+                  ? el?.image
+                  : tempCategoriesDataArray?.find(
+                      (item) => item?.slug === el?.slug
+                    )?.image,
               };
             });
-          setSubCategoriesData(tempCategoriesDataArray); // replace tempCategoriesDataArray with tempData once get category list
+          setSubCategoriesData(tempData); // replace tempCategoriesDataArray with tempData once get category list
         })
         .catch(() => {
           setSubCategoriesData([]);
